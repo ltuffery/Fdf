@@ -6,13 +6,13 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/26 18:39:24 by ltuffery          #+#    #+#              #
-#    Updated: 2022/12/26 18:45:01 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/01/10 16:50:00 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 NAME	=	fdf
 
@@ -34,4 +34,6 @@ clean:
 fclean:		clean
 	rm -rf $(NAME)
 
-re:	fclean re
+re:	fclean all
+
+.PHONY:	re all clean fclean
