@@ -58,3 +58,4 @@ maps/
 tests/
 *.swp
 test.out
+test.fdf
