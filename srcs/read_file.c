@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:34:40 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/13 18:00:08 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:16:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	check_len_line(char *file)
 int	**get_content_file(char *file)
 {
 	if (check_extension_file(file) == 0)
+		return (NULL);
+	if (check_len_line(file) == 0)
 		return (NULL);
 	return (NULL);
 }

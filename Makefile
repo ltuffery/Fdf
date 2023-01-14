@@ -6,7 +6,7 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/26 18:39:24 by ltuffery          #+#    #+#              #
-#    Updated: 2023/01/12 17:25:55 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/01/14 16:20:22 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,8 @@ CFLAGS	=	-Wall -Wextra -Werror -Ofast -g
 
 NAME	=	fdf
 
-SRCS	=	srcs/files/basename.c \
-			srcs/files/check_lines.c \
-			srcs/fdf.c
+SRCS	=	srcs/read_file.c \
+			srcs/main.c
 
 OBJS	=	$(SRCS:.c=.o)
 

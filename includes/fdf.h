@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/13 17:32:53 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:19:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ typedef struct s_data
 	void	*win;
 	int		**points;
 }	t_data;
+
+/*	READ_FILE	*/
+int	**get_content_file(char *file);
 
 #endif
