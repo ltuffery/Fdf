@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 22:47:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:24:19 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,20 @@ typedef struct s_map
 	int	**points;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	void	*img;
+	t_img	*img;
 	t_map	*map;
 }	t_data;
 
@@ -47,6 +56,10 @@ void	clean_points(int **points, int items);
 int		count_split_items(char **items);
 
 /*	EVENTS	*/
-int		quit(int keycode, t_data *data);
+int		esc(int keycode, t_data *data);
+int		quit(t_data *data);
+
+/*	RENDER	*/
+void	render(t_data *data, unsigned int color);
 
 #endif
