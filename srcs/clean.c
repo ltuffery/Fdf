@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 17:33:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 22:28:00 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/01/16 20:32:58 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/01/16 22:25:45 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-int	main(int ac, char **av)
+void	tab_clean(char **tab)
 {
-	t_data	data;
+	int	i;
 
-	if (ac != 2)
-		return (0);
-	data.map = parse_file(av[1]);
-	if (data.map == NULL)
-		error("Error");
-	printf("%i", data.map->points[0][2]);
-	clean_points(data.map->points, data.map->total_y);
-	free(data.map);
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void	clean_points(int **points, int y)
+{
+	int	i;
+
+	i = 0;
+	while (i < y)
+	{
+		free(points[i]);
+		i++;
+	}
+	free(points);
 }

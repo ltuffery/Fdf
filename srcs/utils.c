@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 17:33:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 22:28:00 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/01/16 21:10:18 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/01/16 21:11:28 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include <stddef.h>
 
-int	main(int ac, char **av)
+int	count_split_items(char **items)
 {
-	t_data	data;
+	int	i;
 
-	if (ac != 2)
-		return (0);
-	data.map = parse_file(av[1]);
-	if (data.map == NULL)
-		error("Error");
-	printf("%i", data.map->points[0][2]);
-	clean_points(data.map->points, data.map->total_y);
-	free(data.map);
+	i = 0;
+	while (items[i] != NULL)
+		i++;
+	return (i);
 }
