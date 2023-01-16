@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 17:33:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 22:45:50 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/01/16 22:38:19 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/01/16 22:46:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,13 @@
 #include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
 
-static void	create_window(t_data *data)
+int	quit(int keycode, t_data *data)
 {
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, NAME);
-	mlx_hook(data->win, 2, 1L << 0, quit, data);
-	mlx_loop(data->mlx);
-}
-
-int	main(int ac, char **av)
-{
-	t_data	data;
-
-	if (ac != 2)
-		return (0);
-	data.map = parse_file(av[1]);
-	if (data.map == NULL)
-		error("Error");
-	create_window(&data);
+	(void) keycode;
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	clean_points(data->map->points, data->map->total_y);
+	free(data->map);
+	exit(0);
 }
