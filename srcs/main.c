@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:33:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 23:36:26 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:05:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	create_window(t_data *data)
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, NAME);
 	mlx_hook(data->win, 2, 1L << 0, esc, data);
 	mlx_hook(data->win, 17, 0, quit, data);
+	render(data, 0x00FF0000);
 	mlx_loop(data->mlx);
 }
 
@@ -34,5 +35,4 @@ int	main(int ac, char **av)
 	if (data.map == NULL)
 		error("Error");
 	create_window(&data);
-	render(&data, 0x00FF0000);
 }

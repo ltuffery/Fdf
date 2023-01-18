@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:38:19 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 23:33:11 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:06:27 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	window_close(t_data *data)
 	free(data->mlx);
 	clean_points(data->map->points, data->map->total_y);
 	free(data->map);
+	free(data->img);
 	exit(0);
 }
 
