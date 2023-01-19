@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:52:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/18 17:35:52 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:58:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+
+void	find_point(int *x, int *y, int z)
+{
+	float	angle;
+
+	angle = 0.72;
+	*x = (*x - *y) * cos(angle);
+	*y = (*x + *y) * sin(angle) - z;
+}
 
 void	dda(t_data *data, int X0, int Y0, int X1, int Y1)
 {
@@ -34,8 +43,8 @@ void	dda(t_data *data, int X0, int Y0, int X1, int Y1)
 	dy = dy / steps;
 	for (int i = 0; i <= steps; i++) {
 	dst = data->img->addr + \
-		Y0 * data->img->line_length + \
-		X0 * (data->img->bits_per_pixel / 8);
+		(HEIGHT / 2 + Y0) * data->img->line_length + \
+		(WIDTH / 2 + X0) * (data->img->bits_per_pixel / 8);
 	*(unsigned int *)dst = 0x00FF0000;
 	X0 += dx;
 	Y0 += dy;
@@ -59,17 +68,34 @@ static t_img	*create_img(t_data *data)
 
 void	render(t_data *data, unsigned int color)
 {
-	char	*dst;
-	int		x;
-	int		y;
+	char	*dst = 0;
+	int	i;
+	int	j;
+	int	x;
+	int	y;
 
 	(void) color;
-	dst = 0;
-	y = HEIGHT / 2;
-	x = WIDTH / 2;
+	j = 0;
 	data->img = create_img(data);
 	if (data->img == NULL)
 		return ;
-	dda(data, 0, 0, 6, 6);
+	while (j < data->map->total_y)
+	{
+		i = 0;
+		while (i < data->map->total_x)
+		{
+			x = i;
+			y = j;
+			find_point(&x, &y, data->map->points[j][i]);
+			dst = data->img->addr + \
+				(HEIGHT / 2 + y * 15) * data->img->line_length + \
+				(WIDTH / 2 + x * 15) * (data->img->bits_per_pixel / 8);
+			*(unsigned int *)dst = 0x00FF0000;
+			printf("x : %i | y : %i\n", x, y);
+			i++;
+		}
+		printf("----------------\n");
+		j++;
+	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 }

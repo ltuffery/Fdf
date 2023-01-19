@@ -6,13 +6,13 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/26 18:39:24 by ltuffery          #+#    #+#              #
-#    Updated: 2023/01/16 23:24:02 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/01/19 10:28:32 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror -Ofast -g
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 NAME	=	fdf
 
