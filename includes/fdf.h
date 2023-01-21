@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 23:24:19 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:55:23 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 # define WIDTH 1920
 
 /*	STRUCT	*/
+typedef struct s_point
+{
+	float	x;
+	float	y;
+	int		z;
+}	t_point;
+
 typedef struct s_map
 {
-	int	total_x;
-	int	total_y;
-	int	**points;
+	int		total_x;
+	int		total_y;
+	t_point	**points;
 }	t_map;
 
 typedef struct s_img
@@ -50,7 +57,7 @@ void	error(char const *msg);
 
 /*	CLEAN	*/
 void	tab_clean(char **tab);
-void	clean_points(int **points, int items);
+void	clean_points(t_point **points, int items);
 
 /*	UTILS	*/
 int		count_split_items(char **items);

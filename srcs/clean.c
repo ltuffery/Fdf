@@ -6,10 +6,11 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:32:58 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 22:25:45 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/21 10:57:29 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/fdf.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -26,7 +27,7 @@ void	tab_clean(char **tab)
 	free(tab);
 }
 
-void	clean_points(int **points, int y)
+void	clean_points(t_point **points, int y)
 {
 	int	i;
 

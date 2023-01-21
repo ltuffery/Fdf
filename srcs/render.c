@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:52:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/19 10:58:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:12:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,48 @@
 #include <math.h>
 #include <stdio.h>
 
-void	find_point(int *x, int *y, int z)
+t_point	*get_point(t_point point)
 {
 	float	angle;
+	t_point	*new;
 
-	angle = 0.72;
-	*x = (*x - *y) * cos(angle);
-	*y = (*x + *y) * sin(angle) - z;
+	angle = 0.55;
+	new = malloc(sizeof(t_point));
+	new->x = (point.x - point.y) * cos(angle);
+	new->y = (point.x + point.y) * sin(angle) - point.z;
+	return (new);
 }
 
-void	dda(t_data *data, int X0, int Y0, int X1, int Y1)
+void	dda(t_data *data, t_point point0, t_point point1)
 {
+	char	*dst;
+	t_point	inc;
 	int		dx;
 	int		dy;
-	char	*dst;
 	int		steps;
 
-	dy = Y1 - Y0;
-	dx = X1 - X0;
 	dst = 0;
+	dx = point1.x - point0.x;
+	dy = point1.y - point0.y;
 	if (abs(dx) > abs(dy))
 		steps = abs(dx);
 	else
 		steps = abs(dy);
-	dx = dx / steps;
-	dy = dy / steps;
-	for (int i = 0; i <= steps; i++) {
-	dst = data->img->addr + \
-		(HEIGHT / 2 + Y0) * data->img->line_length + \
-		(WIDTH / 2 + X0) * (data->img->bits_per_pixel / 8);
-	*(unsigned int *)dst = 0x00FF0000;
-	X0 += dx;
-	Y0 += dy;
+	inc.x = dx / (float)steps;
+	inc.y = dy / (float)steps;
+	while (steps >= 0)
+	{
+		dst = data->img->addr + \
+			(HEIGHT / 2 + (int)point0.y) * data->img->line_length + \
+			(WIDTH / 2 + (int)point0.x) * (data->img->bits_per_pixel / 8);
+		*(unsigned int *)dst = 0x00FF0000;
+		point0.x += inc.x;
+		point0.y += inc.y;
+		steps--;
 	}
 }
 
-static t_img	*create_img(t_data *data)
+t_img	*create_img(t_data *data)
 {
 	t_img	*img;
 
@@ -68,34 +74,32 @@ static t_img	*create_img(t_data *data)
 
 void	render(t_data *data, unsigned int color)
 {
-	char	*dst = 0;
-	int	i;
-	int	j;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_point	*point0;
+	t_point	*point1;
 
 	(void) color;
-	j = 0;
+	y = 0;
 	data->img = create_img(data);
 	if (data->img == NULL)
 		return ;
-	while (j < data->map->total_y)
+	while (y < data->map->total_y - 1)
 	{
-		i = 0;
-		while (i < data->map->total_x)
+		x = 0;
+		while (x < data->map->total_x - 1)
 		{
-			x = i;
-			y = j;
-			find_point(&x, &y, data->map->points[j][i]);
-			dst = data->img->addr + \
-				(HEIGHT / 2 + y * 15) * data->img->line_length + \
-				(WIDTH / 2 + x * 15) * (data->img->bits_per_pixel / 8);
-			*(unsigned int *)dst = 0x00FF0000;
-			printf("x : %i | y : %i\n", x, y);
-			i++;
+			point0 = get_point(data->map->points[y][x]);
+			point1 = get_point(data->map->points[y][x + 1]);
+			dda(data, *point0, *point1);
+			free(point1);
+			point1 = get_point(data->map->points[y + 1][x]);
+			dda(data, *point0, *point1);
+			free(point0);
+			free(point1);
+			x++;
 		}
-		printf("----------------\n");
-		j++;
+		y++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 }

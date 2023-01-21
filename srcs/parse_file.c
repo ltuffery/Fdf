@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/16 22:29:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:37:38 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 #include "../libft/includes/get_next_line.h"
 #include "../includes/fdf.h"
 #include <fcntl.h>
+#include <stdlib.h>
 
 #define LEN_EXTENSION 4
+#define ZOOM 30
 
 static void	check_extension_file(char *file)
 {
@@ -64,12 +66,14 @@ static t_map	*fill_map(char **content, t_map *map)
 		size = count_split_items(split);
 		if (map->total_x > size)
 			map->total_x = size;
-		map->points[i] = malloc(sizeof(int) * size);
+		map->points[i] = malloc(sizeof(t_point) * size);
 		if (map->points[i] == NULL)
 			return (NULL);
 		while (split[j] != NULL)
 		{
-			map->points[i][j] = ft_atoi(split[j]);
+			map->points[i][j].x = j * ZOOM;
+			map->points[i][j].y = i * ZOOM;
+			map->points[i][j].z = ft_atoi(split[j]);
 			j++;
 		}
 		tab_clean(split);
@@ -87,7 +91,7 @@ static t_map	*convert_tab_char_to_map(char **content)
 	if (map == NULL)
 		return (NULL);
 	size = count_split_items(content);
-	map->points = malloc(sizeof(int *) * size);
+	map->points = malloc(sizeof(t_point *) * size);
 	if (map->points == NULL)
 		return (NULL);
 	map->total_x = ft_strlen(content[0]);
