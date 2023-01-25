@@ -6,7 +6,7 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/26 18:39:24 by ltuffery          #+#    #+#              #
-#    Updated: 2023/01/19 10:28:32 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/01/25 15:45:24 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,11 @@ CFLAGS	=	-Wall -Wextra -Werror -g
 NAME	=	fdf
 
 SRCS	=	srcs/parse_file.c \
-			srcs/error.c \
 			srcs/clean.c \
 			srcs/utils.c \
 			srcs/events.c \
 			srcs/render.c \
+			srcs/draw.c \
 			srcs/main.c
 
 OBJS	=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/23 15:56:54 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:01:22 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <stdlib.h>
 
 #define LEN_EXTENSION 4
-#define ZOOM 30.0
 
 static char	**get_content(char *file)
 {
@@ -42,8 +41,8 @@ static char	**get_content(char *file)
 
 static void	insert_point(t_map *map, int x, int y, int z)
 {
-	map->points[y][x].x = x * ZOOM;
-	map->points[y][x].y = y * ZOOM;
+	map->points[y][x].x = (x - map->total_x / 2) * (ZOOM / 5);
+	map->points[y][x].y = (y - map->total_y / 2) * (ZOOM / 5);
 	map->points[y][x].z = z;
 }
 
@@ -90,7 +89,7 @@ static t_map	*convert_tab_char_to_map(char **content)
 		return (NULL);
 	map->total_x = ft_strlen(content[0]);
 	map->total_y = size;
-	map->total_points = map->total_x + map->total_y;
+	map->total_points = map->total_x * map->total_y;
 	map = fill_map(content, map);
 	if (map == NULL)
 		return (NULL);

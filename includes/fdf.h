@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/23 14:38:24 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:40:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define NAME "fdf"
 # define HEIGHT 1080
 # define WIDTH 1920
+# define ZOOM 30.0
 
 /*	STRUCT	*/
 typedef struct s_point
@@ -69,5 +70,8 @@ int		quit(t_data *data);
 
 /*	RENDER	*/
 void	render(t_data *data);
+
+/*	DRAW	*/
+void	dda(t_data *data, t_point point0, t_point point1);
 
 #endif
