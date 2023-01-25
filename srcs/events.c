@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:38:19 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/18 17:06:27 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:34:17 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 
 static void	window_close(t_data *data)
 {
-	if (data->img != NULL)
-		mlx_destroy_image(data->mlx, data->img->img);
+	mlx_destroy_image(data->mlx, data->img->img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);

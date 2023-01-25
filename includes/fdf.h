@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/21 14:55:23 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:38:24 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_map
 {
 	int		total_x;
 	int		total_y;
+	int		total_points;
 	t_point	**points;
 }	t_map;
 
@@ -67,6 +68,6 @@ int		esc(int keycode, t_data *data);
 int		quit(t_data *data);
 
 /*	RENDER	*/
-void	render(t_data *data, unsigned int color);
+void	render(t_data *data);
 
 #endif

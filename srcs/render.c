@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:52:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/21 15:12:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:38:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,54 @@
 #include <math.h>
 #include <stdio.h>
 
-t_point	*get_point(t_point point)
+t_point	*get_point(t_data *data, t_point point)
 {
 	float	angle;
 	t_point	*new;
 
+	(void) data;
 	angle = 0.55;
 	new = malloc(sizeof(t_point));
 	new->x = (point.x - point.y) * cos(angle);
+	new->x += WIDTH / 2 - data->map->total_x * 15 / 2;
 	new->y = (point.x + point.y) * sin(angle) - point.z;
+	new->y += HEIGHT / 2 - data->map->total_points * 15 / 4;
 	return (new);
+}
+
+static void	put_pixel(t_data *data, int x, int y)
+{
+	char	*dst;
+
+	dst = 0;
+	dst = data->img->addr + \
+		y * data->img->line_length + \
+		x * (data->img->bits_per_pixel / 8);
+	*(unsigned int *)dst = 0x00FF0000;
 }
 
 void	dda(t_data *data, t_point point0, t_point point1)
 {
 	char	*dst;
 	t_point	inc;
-	int		dx;
-	int		dy;
-	int		steps;
+	float	dx;
+	float	dy;
+	float	steps;
 
 	dst = 0;
 	dx = point1.x - point0.x;
 	dy = point1.y - point0.y;
-	if (abs(dx) > abs(dy))
-		steps = abs(dx);
-	else
-		steps = abs(dy);
+	steps = fmax(fabs(dx), fabs(dy));
 	inc.x = dx / (float)steps;
 	inc.y = dy / (float)steps;
 	while (steps >= 0)
 	{
-		dst = data->img->addr + \
-			(HEIGHT / 2 + (int)point0.y) * data->img->line_length + \
-			(WIDTH / 2 + (int)point0.x) * (data->img->bits_per_pixel / 8);
-		*(unsigned int *)dst = 0x00FF0000;
+		steps--;
+		if (point0.x >= 0 && point0.x <= WIDTH)
+			if (point0.y >= 0 && point0.y <= HEIGHT)
+				put_pixel(data, (int)point0.x, (int)point0.y);
 		point0.x += inc.x;
 		point0.y += inc.y;
-		steps--;
 	}
 }
 
@@ -72,14 +82,13 @@ t_img	*create_img(t_data *data)
 	return (img);
 }
 
-void	render(t_data *data, unsigned int color)
+void	render(t_data *data)
 {
 	int		x;
 	int		y;
 	t_point	*point0;
 	t_point	*point1;
 
-	(void) color;
 	y = 0;
 	data->img = create_img(data);
 	if (data->img == NULL)
@@ -89,16 +98,27 @@ void	render(t_data *data, unsigned int color)
 		x = 0;
 		while (x < data->map->total_x - 1)
 		{
-			point0 = get_point(data->map->points[y][x]);
-			point1 = get_point(data->map->points[y][x + 1]);
+			point0 = get_point(data, data->map->points[y][x]);
+			point1 = get_point(data, data->map->points[y][x + 1]);
 			dda(data, *point0, *point1);
 			free(point1);
-			point1 = get_point(data->map->points[y + 1][x]);
+			point1 = get_point(data, data->map->points[y + 1][x]);
 			dda(data, *point0, *point1);
 			free(point0);
+			if (y == data->map->total_y - 2)
+			{
+				point0 = get_point(data, data->map->points[y + 1][x + 1]);
+				dda(data, *point1, *point0);
+				free(point0);
+			}
 			free(point1);
 			x++;
 		}
+		point0 = get_point(data, data->map->points[y][x]);
+		point1 = get_point(data, data->map->points[y + 1][x]);
+		dda(data, *point0, *point1);
+		free(point0);
+		free(point1);
 		y++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);

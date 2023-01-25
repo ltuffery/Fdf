@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/21 14:37:38 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:56:54 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,7 @@
 #include <stdlib.h>
 
 #define LEN_EXTENSION 4
-#define ZOOM 30
-
-static void	check_extension_file(char *file)
-{
-	size_t	len;
-
-	len = ft_strlen(file);
-	if (len <= 3)
-		error("The file extension is not correct");
-	if (ft_strncmp(&file[len - LEN_EXTENSION], ".fdf", LEN_EXTENSION) != 0)
-		error("The file extension is not correct");
-}
+#define ZOOM 30.0
 
 static char	**get_content(char *file)
 {
@@ -51,6 +40,13 @@ static char	**get_content(char *file)
 	return (content);
 }
 
+static void	insert_point(t_map *map, int x, int y, int z)
+{
+	map->points[y][x].x = x * ZOOM;
+	map->points[y][x].y = y * ZOOM;
+	map->points[y][x].z = z;
+}
+
 static t_map	*fill_map(char **content, t_map *map)
 {
 	int		i;
@@ -71,9 +67,7 @@ static t_map	*fill_map(char **content, t_map *map)
 			return (NULL);
 		while (split[j] != NULL)
 		{
-			map->points[i][j].x = j * ZOOM;
-			map->points[i][j].y = i * ZOOM;
-			map->points[i][j].z = ft_atoi(split[j]);
+			insert_point(map, j, i, ft_atoi(split[j]));
 			j++;
 		}
 		tab_clean(split);
@@ -96,6 +90,7 @@ static t_map	*convert_tab_char_to_map(char **content)
 		return (NULL);
 	map->total_x = ft_strlen(content[0]);
 	map->total_y = size;
+	map->total_points = map->total_x + map->total_y;
 	map = fill_map(content, map);
 	if (map == NULL)
 		return (NULL);
@@ -104,10 +99,15 @@ static t_map	*convert_tab_char_to_map(char **content)
 
 t_map	*parse_file(char *file)
 {
+	size_t	len;
 	char	**content;
 	t_map	*map;
 
-	check_extension_file(file);
+	len = ft_strlen(file);
+	if (len <= 3)
+		error("The file extension is not correct");
+	if (ft_strncmp(&file[len - LEN_EXTENSION], ".fdf", LEN_EXTENSION) != 0)
+		error("The file extension is not correct");
 	content = get_content(file);
 	if (content == NULL)
 		error("Content file is not valid");
