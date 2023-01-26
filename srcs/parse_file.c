@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/26 17:42:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:44:23 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../libft/includes/get_next_line.h"
 #include "../includes/fdf.h"
 #include <fcntl.h>
-#include <stdlib.h>
 
 #define LEN_EXTENSION 4
 

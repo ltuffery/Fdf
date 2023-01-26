@@ -6,14 +6,12 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:10:18 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/26 17:19:27 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:44:39 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include "../libft/includes/libft.h"
 #include "../includes/fdf.h"
-#include <stdio.h>
 
 int	count_split_items(char **items)
 {

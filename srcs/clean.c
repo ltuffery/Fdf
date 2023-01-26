@@ -6,13 +6,12 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:32:58 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/21 10:57:29 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:44:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 void	tab_clean(char **tab)
 {
