@@ -6,7 +6,7 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/26 18:39:24 by ltuffery          #+#    #+#              #
-#    Updated: 2023/01/25 15:45:24 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/01/26 19:55:13 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 	@make -s -C libft
+	@make -s -C minilibx-linux
 	$(CC) $(OBJS) libft/libft.a -Lmlx_linux -lmlx_Linux -L./minilibx-linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 	@make fclean -s -C libft
 
