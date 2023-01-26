@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/25 17:40:26 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:19:52 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 /*	STRUCT	*/
 typedef struct s_point
 {
-	float	x;
-	float	y;
-	int		z;
+	float			x;
+	float			y;
+	int				z;
+	unsigned int	color;
 }	t_point;
 
 typedef struct s_map
@@ -63,6 +64,8 @@ void	clean_points(t_point **points, int items);
 
 /*	UTILS	*/
 int		count_split_items(char **items);
+int		create_trgb(unsigned char t, unsigned char r, \
+		unsigned char g, unsigned char b);
 
 /*	EVENTS	*/
 int		esc(int keycode, t_data *data);

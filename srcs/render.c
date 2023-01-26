@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:52:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/25 17:46:56 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:28:31 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-static t_point	*get_point(t_data *data, t_point point)
+static t_point	*get_point(t_point point)
 {
 	float	angle;
 	float	x;
@@ -28,7 +28,7 @@ static t_point	*get_point(t_data *data, t_point point)
 	new = malloc(sizeof(t_point));
 	new->x = (x - point.y) * cos(angle) + WIDTH / 2;
 	new->y = (point.x + y) * sin(angle) - point.z + HEIGHT / 2;
-	(void) data;
+	new->color = point.color;
 	return (new);
 }
 
@@ -52,8 +52,8 @@ static void	line(t_data *data, t_point p0, t_point p1)
 	t_point	*point0;
 	t_point	*point1;
 
-	point0 = get_point(data, p0);
-	point1 = get_point(data, p1);
+	point0 = get_point(p0);
+	point1 = get_point(p1);
 	dda(data, *point0, *point1);
 	free(point0);
 	free(point1);

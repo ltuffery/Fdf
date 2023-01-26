@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:10:18 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/25 17:04:54 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:19:27 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,10 @@ void	error(char const *msg)
 {
 	ft_putendl_fd((char *)msg, 1);
 	exit(1);
+}
+
+int	create_trgb(unsigned char t, unsigned char r, \
+		unsigned char g, unsigned char b)
+{
+	return (*(int *)(unsigned char [4]){b, g, r, t});
 }

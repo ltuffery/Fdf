@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/25 18:01:22 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:42:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,32 @@ static char	**get_content(char *file)
 	return (content);
 }
 
-static void	insert_point(t_map *map, int x, int y, int z)
+static void	insert_point(t_map *map, int x, int y, char *content)
 {
+	char			*color;
+	unsigned char	g;
+	unsigned char	b;
+
 	map->points[y][x].x = (x - map->total_x / 2) * (ZOOM / 5);
 	map->points[y][x].y = (y - map->total_y / 2) * (ZOOM / 5);
-	map->points[y][x].z = z;
+	map->points[y][x].z = ft_atoi(content);
+	color = ft_strchr(content, ',');
+	if (color == NULL)
+		map->points[y][x].color = 0x00FF0000;
+	else
+	{
+		color = &color[3];
+		g = 0;
+		b = 0;
+		if (color[2] != '\0')
+		{
+			g += color[2] + color[3];
+			if (color[3] != '\0')
+				if (color[4] != '\0')
+					b += color[4] + color[5];
+		}
+		map->points[y][x].color = create_trgb(0, color[0] + color[1], g, b);
+	}
 }
 
 static t_map	*fill_map(char **content, t_map *map)
@@ -66,7 +87,7 @@ static t_map	*fill_map(char **content, t_map *map)
 			return (NULL);
 		while (split[j] != NULL)
 		{
-			insert_point(map, j, i, ft_atoi(split[j]));
+			insert_point(map, j, i, split[j]);
 			j++;
 		}
 		tab_clean(split);
