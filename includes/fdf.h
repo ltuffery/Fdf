@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/26 17:19:52 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/28 19:21:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define NAME "fdf"
 # define HEIGHT 1080
 # define WIDTH 1920
-# define ZOOM 30.0
+# define DEFAULT_ZOOM 30.0
 
 /*	STRUCT	*/
 typedef struct s_point
@@ -31,7 +31,7 @@ typedef struct s_map
 {
 	int		total_x;
 	int		total_y;
-	int		total_points;
+	double	zoom;
 	t_point	**points;
 }	t_map;
 
@@ -66,6 +66,7 @@ void	clean_points(t_point **points, int items);
 int		count_split_items(char **items);
 int		create_trgb(unsigned char t, unsigned char r, \
 		unsigned char g, unsigned char b);
+void	find_zoom(t_map *map);
 
 /*	EVENTS	*/
 int		esc(int keycode, t_data *data);
@@ -73,6 +74,8 @@ int		quit(t_data *data);
 
 /*	RENDER	*/
 void	render(t_data *data);
+t_point	*get_point(t_point point);
+void	resize_points(t_map *map);
 
 /*	DRAW	*/
 void	dda(t_data *data, t_point point0, t_point point1);

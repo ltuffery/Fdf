@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:52:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/26 17:28:31 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/28 20:29:01 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,29 @@
 #include <stdlib.h>
 #include <math.h>
 
-static t_point	*get_point(t_point point)
+void	resize_points(t_map *map)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	find_zoom(map);
+	while (y < map->total_y)
+	{
+		x = 0;
+		while (x < map->total_x)
+		{
+			map->points[y][x].x = map->points[y][x].x / DEFAULT_ZOOM \
+									* map->zoom;
+			map->points[y][x].y = map->points[y][x].y / DEFAULT_ZOOM \
+									* map->zoom;
+			x++;
+		}
+		y++;
+	}
+}
+
+t_point	*get_point(t_point point)
 {
 	float	angle;
 	float	x;

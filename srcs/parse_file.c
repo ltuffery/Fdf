@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/26 18:44:23 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/28 20:11:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	insert_point(t_map *map, int x, int y, char *content)
 	unsigned char	g;
 	unsigned char	b;
 
-	map->points[y][x].x = (x - map->total_x / 2) * (ZOOM / 5);
-	map->points[y][x].y = (y - map->total_y / 2) * (ZOOM / 5);
+	map->points[y][x].x = (x - map->total_x / 2) * map->zoom;
+	map->points[y][x].y = (y - map->total_y / 2) * map->zoom;
 	map->points[y][x].z = ft_atoi(content);
 	color = ft_strchr(content, ',');
 	if (color == NULL)
@@ -109,8 +109,9 @@ static t_map	*convert_tab_char_to_map(char **content)
 		return (NULL);
 	map->total_x = ft_strlen(content[0]);
 	map->total_y = size;
-	map->total_points = map->total_x * map->total_y;
+	map->zoom = DEFAULT_ZOOM;
 	map = fill_map(content, map);
+	resize_points(map);
 	if (map == NULL)
 		return (NULL);
 	return (map);
