@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:56:51 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/28 20:11:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:11:42 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,24 @@
 
 static char	**get_content(char *file)
 {
+	int		i;
 	int		fd;
 	char	*line;
 	char	**content;
 
+	i = 0;
+	content = malloc(sizeof(char *) * (count_file_lines(file) + 1));
 	fd = open(file, O_RDONLY);
-	content = NULL;
 	line = get_next_line(fd);
 	if (line == NULL)
 		return (NULL);
 	while (line != NULL)
 	{
-		content = ft_strappend(line, content);
-		free(line);
+		content[i] = line;
+		i++;
 		line = get_next_line(fd);
 	}
+	content[i] = NULL;
 	close(fd);
 	return (content);
 }

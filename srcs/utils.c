@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:10:18 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/28 20:32:42 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:17:37 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/fdf.h"
 #include <math.h>
 
-#define RESIZE_VALUE 0.65
+#define RESIZE_VALUE 0.82
 
 int	count_split_items(char **items)
 {

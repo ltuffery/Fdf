@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:10:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/01/28 19:21:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/01/29 16:05:37 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ typedef struct s_data
 
 /*	PARSE_FILE	*/
 t_map	*parse_file(char *file);
+
+/*	PARSE_FILE_UTILS	*/
+int		count_file_lines(char *file);
 
 /*	ERROR	*/
 void	error(char const *msg);

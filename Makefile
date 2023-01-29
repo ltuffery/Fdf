@@ -6,7 +6,7 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/26 18:39:24 by ltuffery          #+#    #+#              #
-#    Updated: 2023/01/28 20:37:14 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/01/29 16:05:50 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ CFLAGS	=	-Wall -Wextra -Werror -Ofast -g
 NAME	=	fdf
 
 SRCS	=	srcs/parse_file.c \
+			srcs/parse_file_utils.c \
 			srcs/clean.c \
 			srcs/utils.c \
 			srcs/events.c \
