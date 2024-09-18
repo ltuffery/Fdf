@@ -26,13 +26,11 @@ static void	put_pixel(t_data *data, int x, int y, unsigned int color)
 
 void	dda(t_data *data, t_point point0, t_point point1)
 {
-	char	*dst;
 	t_point	inc;
 	float	dx;
 	float	dy;
 	float	steps;
 
-	dst = 0;
 	dx = point1.x - point0.x;
 	dy = point1.y - point0.y;
 	steps = fmax(fabs(dx), fabs(dy));
