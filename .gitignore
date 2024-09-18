@@ -54,7 +54,6 @@ dkms.conf
 # Custom
 test_maps/
 fdf
-maps/
 tests/
 *.swp
 test.out
